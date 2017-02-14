@@ -12,7 +12,7 @@ void RenderScene()
 
 	GLfloat sizes[2]; //存储坐标和角度
 	GLfloat step;	  //存储搜指出的点大小增量
-	GLfloat curSize;  //存储当前点大小 
+	GLfloat curSize;  //存储当前点大小
 
 	// OpenGL命令，清除颜色缓冲区（使用当前设置的颜色）
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -28,27 +28,29 @@ void RenderScene()
 	glGetFloatv(GL_POINT_SIZE_GRANULARITY, &step);
 	curSize = sizes[0];
 
-									// 开始绘制顶点图元
+	// 开始绘制顶点图元
 	// 设置Z轴的起始位置
 	z = -50.0f;
 	//
+	glBegin(GL_LINE_STRIP);
 	for (angle = 0.0f; angle <= (2.0f * GL_PI * 3.0f); angle += 0.1f) {
 		//计算X、Y坐标
 		x = 50.0f * sin(angle);
 		y = 50.0f * cos(angle);
-		
+
 		//设置点大小 要在 glbegin外面 设置
 		glPointSize(curSize);
 
 		//指定顶点位置
-		glBegin(GL_POINTS);
-			glVertex3f(x, y, z);
-		glEnd();
+		
+		glVertex3f(x, y, z);
+		
 
 		//对Z坐标值稍作修改，在下一个顶点使用
 		z += 0.5f;
 		curSize += step;
 	}
+	glEnd();
 	// 恢复矩阵状态
 	glPopMatrix();
 	// 刷新绘图命令，此时所有未执行的OpenGL命令被执行
@@ -95,7 +97,7 @@ void ChangeSize(GLsizei w, GLsizei h) {
 void main() {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
-	glutCreateWindow("GLRect");
+	glutCreateWindow("Alex OpenGL learn ");
 	// 设置窗口的初始大小
 	glutInitWindowSize(480, 320);
 	//设置显示回调
@@ -107,6 +109,5 @@ void main() {
 
 	glutMainLoop();
 }
-
-
 */
+

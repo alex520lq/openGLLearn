@@ -1,5 +1,5 @@
 #include "stdafx.h"
-/*
+
 #include<gl/glut.h>
 #include <cmath>
 
@@ -8,49 +8,27 @@
 void RenderScene()
 {
 	// 存储坐标和角度
-	GLfloat x, y, z, angle;
+	GLfloat y;  //存储变化的y坐标
+	GLint factor = 1;   //点画乘法因子
+	GLushort patten = 0x5555;//点画模式
 
-	GLfloat sizes[2]; //存储坐标和角度
-	GLfloat step;	  //存储搜指出的点大小增量
-	GLfloat curSize;  //存储当前点大小 
-
-	// OpenGL命令，清除颜色缓冲区（使用当前设置的颜色）
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	// 保存矩阵状态并旋转
-	glPushMatrix();
-	glRotatef(50, 1.0f, 0.0f, 0.0f); //指定旋转方向
-	glRotatef(50, 0.0f, 1.0f, 0.0f);//
 
+	//获得受支持 的先宽度大小范围
+	//启用点画模式
+	glEnable(GL_LINE_STIPPLE);
 
-	//获得受支持 的点大小范围和步进值
-	glGetFloatv(GL_POINT_SIZE_RANGE, sizes);
-	glGetFloatv(GL_POINT_SIZE_GRANULARITY, &step);
-	curSize = sizes[0];
+	for (y = -90.0f;y < 90;y += 20.0f) {
 
-									// 开始绘制顶点图元
-	// 设置Z轴的起始位置
-	z = -50.0f;
-	//
-	for (angle = 0.0f; angle <= (2.0f * GL_PI * 3.0f); angle += 0.1f) {
-		//计算X、Y坐标
-		x = 50.0f * sin(angle);
-		y = 50.0f * cos(angle);
-		
-		//设置点大小 要在 glbegin外面 设置
-		glPointSize(curSize);
-
-		//指定顶点位置
-		glBegin(GL_POINTS);
-			glVertex3f(x, y, z);
+		glLineStipple(factor, patten);
+		glBegin(GL_LINES);
+		glVertex2f(-80.0f, y);
+		glVertex2f(80.0f, y);
 		glEnd();
-
-		//对Z坐标值稍作修改，在下一个顶点使用
-		z += 0.5f;
-		curSize += step;
+		factor+=1;
 	}
-	// 恢复矩阵状态
-	glPopMatrix();
+
 	// 刷新绘图命令，此时所有未执行的OpenGL命令被执行
 	glFlush();
 
@@ -95,7 +73,7 @@ void ChangeSize(GLsizei w, GLsizei h) {
 void main() {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
-	glutCreateWindow("GLRect");
+	glutCreateWindow("Alex OpenGL learn ");
 	// 设置窗口的初始大小
 	glutInitWindowSize(480, 320);
 	//设置显示回调
@@ -109,4 +87,3 @@ void main() {
 }
 
 
-*/
