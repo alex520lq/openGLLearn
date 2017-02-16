@@ -69,6 +69,7 @@ void ChangeSize(GLsizei w, GLsizei h) {
 
 	glLoadIdentity();
 
+
 }
 void main() {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
